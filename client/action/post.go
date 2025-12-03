@@ -15,20 +15,20 @@ type PostAction struct {
 }
 
 func (action *PostAction) String() string {
-	return "Produkt hinzufuegen"
+	return "Add product"
 }
 
 func (action *PostAction) Execute() {
 	var produkt core.Produkt
-	fmt.Println("Neues Produkt hinzufuegen")
+	fmt.Println("Add new product")
 	produkt.Name = console.LeseString("Name")
-	produkt.Menge = console.LeseZahl("Menge")
+	produkt.Menge = console.LeseZahl("Quantity")
 
 	data, _ := json.Marshal(produkt)
 
 	response, err := http.DefaultClient.Post(Server+Endpoint, "application/json", bytes.NewBuffer(data))
 	if err != nil {
-		console.Error("Anfrage konnte nicht an den Server gestellt werden.")
+		console.Error("No connection to server possible.")
 		return
 	}
 

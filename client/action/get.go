@@ -13,13 +13,13 @@ type GetAction struct {
 }
 
 func (action *GetAction) String() string {
-	return "Alle Produkte abfragen"
+	return "Get all products"
 }
 
 func (action *GetAction) Execute() {
 	response, err := http.DefaultClient.Get(Server + Endpoint)
 	if err != nil {
-		console.Error("Anfrage konnte nicht an den Server gestellt werden.")
+		console.Error("No connection to server possible.")
 		return
 	}
 
@@ -33,10 +33,10 @@ func (action *GetAction) Execute() {
 
 	var produkte []core.Produkt
 	if err := json.Unmarshal(body, &produkte); err != nil {
-		console.Error("Antwort vom Server konnte nicht gelesen werden.")
+		console.Error("Could not read response from server")
 		return
 	}
 	Produkte = produkte
-	console.Info("Einkaufsliste")
+	console.Info("Shoppinglist")
 	console.ListeAuf(produkte)
 }

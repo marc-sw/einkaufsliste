@@ -10,16 +10,16 @@ import (
 )
 
 var repository = core.MockProductRepository()
-var ungueltigeIdError = errors.New("Unbekannte Produkt Id")
+var ungueltigeIdError = errors.New("Unknown product id")
 
 func handleInternalError(err error, w http.ResponseWriter) {
-	http.Error(w, "Ein unerwarteter Fehler ist aufgetreten", http.StatusInternalServerError)
-	log.Println("Ein interner Fehler ist aufgetreten: " + err.Error())
+	http.Error(w, "An unknown error happened", http.StatusInternalServerError)
+	log.Println("An internal error happened: " + err.Error())
 }
 
 func handleClientError(err error, w http.ResponseWriter) {
-	http.Error(w, "Ungueltige Eingabe: ", http.StatusBadRequest)
-	log.Panicln("Ungueltige Eingabe vom Client: " + err.Error())
+	http.Error(w, "Invalid input: ", http.StatusBadRequest)
+	log.Panicln("Invalid input from client: " + err.Error())
 }
 
 func handleGetAll(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +30,7 @@ func handleGetAll(w http.ResponseWriter, r *http.Request) {
 		handleInternalError(err, w)
 	} else {
 		w.Write(data)
-		log.Println("Client hat alle Produkte abgefragt")
+		log.Println("Client fetched all products")
 	}
 }
 
@@ -41,8 +41,8 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 	} else {
 		repository.CreateProdukt(produkt)
 		w.WriteHeader(http.StatusCreated)
-		w.Write([]byte("Das Produkt wurde der Einkaufsliste hinzugefuegt."))
-		log.Println("Client hat ein Produkt der Einkaufsliste hinzugefuegt.")
+		w.Write([]byte("Product added to shopping list."))
+		log.Println("Client added a product to the shopping list.")
 	}
 }
 
@@ -54,8 +54,8 @@ func handlePut(w http.ResponseWriter, r *http.Request) {
 		var bearbeitet = repository.UpdateProdukt(produkt)
 
 		if bearbeitet {
-			w.Write([]byte("Das Produkt wurde bearbeitet."))
-			log.Println("Client hat ein Produkt bearbeitet.")
+			w.Write([]byte("Product edited."))
+			log.Println("Client edited a product.")
 		} else {
 			handleClientError(ungueltigeIdError, w)
 		}
@@ -70,8 +70,8 @@ func handleDelete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if geloescht {
-		log.Println("Das Produkt wurde aus der Einkaufsliste entfernt.")
-		w.Write([]byte("Client hat ein Produkt aus der Einkaufsliste entfernt."))
+		log.Println("Product removed from shopping list.")
+		w.Write([]byte("Client removed a product from the shopping list."))
 	} else {
 		handleClientError(ungueltigeIdError, w)
 	}

@@ -12,7 +12,7 @@ func Run() {
 	for {
 		console.PrintSeperatorLine()
 		console.ListeAuf(actions)
-		actionId = console.LeseBestimmteZahl("Aktionsnummer", 1, len(actions)) - 1 //leseNutzerEingabe(1, len(actions)) - 1
+		actionId = console.LeseBestimmteZahl("Action", 1, len(actions)) - 1 //leseNutzerEingabe(1, len(actions)) - 1
 		console.PrintSeperatorLine()
 		actions[actionId].Execute()
 	}

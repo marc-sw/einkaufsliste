@@ -11,14 +11,14 @@ func NewProduktRepository() *ProduktRepository {
 
 func MockProductRepository() *ProduktRepository {
 	var produkte []Produkt = []Produkt{
-		Produkt{0, "Milch 1.5L", 2, false},
-		Produkt{1, "Brot", 1, false},
-		Produkt{2, "Haferflocken 500g", 1, false},
-		Produkt{3, "Olivenoel 1L", 1, false},
-		Produkt{4, "Tomaten", 5, false},
-		Produkt{5, "Kesselchips", 4, false},
-		Produkt{6, "Nudeln 500g", 2, false},
-		Produkt{7, "Zwiebeln 250g", 1, false},
+		Produkt{0, "Milk 1.5L", 2, false},
+		Produkt{1, "Bread", 1, false},
+		Produkt{2, "Oat flakes 500g", 1, false},
+		Produkt{3, "Olive oil 1L", 1, false},
+		Produkt{4, "Tomatoes", 5, false},
+		Produkt{5, "Chips", 4, false},
+		Produkt{6, "Noodles 500g", 2, false},
+		Produkt{7, "Onions 250g", 1, false},
 	}
 	return &ProduktRepository{naechsteId: len(produkte), produkte: produkte}
 }

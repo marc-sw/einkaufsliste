@@ -23,5 +23,5 @@ func Info(info string) {
 }
 
 func Error(err string) {
-	Info("Fehler: " + err)
+	Info("Error: " + err)
 }

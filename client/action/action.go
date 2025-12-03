@@ -23,11 +23,11 @@ type BeendenAction struct {
 }
 
 func (action *BeendenAction) String() string {
-	return "Client beenden"
+	return "Exit client"
 }
 
 func (action *BeendenAction) Execute() {
-	log.Println("Client wurde beendet")
+	log.Println("client was closed")
 	os.Exit(0)
 }
 

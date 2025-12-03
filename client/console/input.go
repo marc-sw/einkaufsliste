@@ -25,7 +25,7 @@ func LeseZahl(info string) int {
 		if err == nil {
 			return zahl
 		}
-		fmt.Println("Eingabe war keine Zahl.")
+		fmt.Println("Input was not a number.")
 	}
 }
 
@@ -36,7 +36,7 @@ func LeseBestimmteZahl(info string, min int, max int) int {
 		if zahl >= min && zahl <= max {
 			return zahl
 		}
-		fmt.Println(fmt.Sprintf("Eingabe muss zwischen %d und %d liegen.", min, max))
+		fmt.Println(fmt.Sprintf("Input must be between %d and %d.", min, max))
 	}
 }
 
@@ -48,7 +48,7 @@ func LeseBool(info string) bool {
 		} else if strings.HasPrefix(eingabe, "n") || eingabe == "0" || eingabe == "false" {
 			return false
 		}
-		fmt.Println("Eingabe muss ja oder nein sein.")
+		fmt.Println("Input must be 'yes' or 'no'.")
 	}
 }
 
@@ -70,7 +70,7 @@ func LeseOptionalZahl(info string, fallback int) int {
 		if err == nil {
 			return zahl
 		}
-		fmt.Println("Eingabe war keine Zahl.")
+		fmt.Println("Input was not a number.")
 	}
 }
 
@@ -86,6 +86,6 @@ func LeseOptionalBool(info string, fallback bool) bool {
 		if strings.HasPrefix(eingabe, "n") || eingabe == "0" || eingabe == "false" {
 			return false
 		}
-		fmt.Println("Eingabe muss ja oder nein sein.")
+		fmt.Println("Input must be 'yes' or 'no'.")
 	}
 }

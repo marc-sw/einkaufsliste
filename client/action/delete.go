@@ -13,20 +13,20 @@ type DeleteAction struct {
 }
 
 func (action *DeleteAction) String() string {
-	return "Produkt entfernen"
+	return "Remove product"
 }
 
 func (action *DeleteAction) Execute() {
-	console.Info("Welches Produkt soll geloescht werden?")
+	console.Info("Which product should be removed?")
 	console.ListeAuf(Produkte)
-	var index = console.LeseBestimmteZahl("Produktnummer", 1, len(Produkte)) - 1
+	var index = console.LeseBestimmteZahl("Productnumber", 1, len(Produkte)) - 1
 	var produkt core.Produkt = Produkte[index]
 	var url = fmt.Sprintf("%s/%d", Server+Endpoint, produkt.Id)
 	request, _ := http.NewRequest(http.MethodDelete, url, nil)
 
 	response, err := http.DefaultClient.Do(request)
 	if err != nil {
-		console.Error("Anfrage konnte nicht an den Server gestellt werden.")
+		console.Error("No connection to server possible.")
 		return
 	}
 

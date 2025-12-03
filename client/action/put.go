@@ -14,18 +14,18 @@ type PutAction struct {
 }
 
 func (action *PutAction) String() string {
-	return "Produkt bearbeiten"
+	return "Edit product"
 }
 
 func (action *PutAction) Execute() {
-	console.Info("Welches Produkt soll bearbeitet werden?")
+	console.Info("Which product should be edited?")
 	console.ListeAuf(Produkte)
-	var index = console.LeseBestimmteZahl("Produktnummer", 1, len(Produkte)) - 1
+	var index = console.LeseBestimmteZahl("Productnumber", 1, len(Produkte)) - 1
 	var produkt core.Produkt = Produkte[index]
-	console.Info("Gebe neue Werte ein oder lasse die Eingabe weg.")
+	console.Info("Enter new values or keep them empty to use the previos value.")
 	produkt.Name = console.LeseOptionalString("Name", produkt.Name)
-	produkt.Menge = console.LeseOptionalZahl("Menge", produkt.Menge)
-	produkt.Erledigt = console.LeseOptionalBool("Erledigt", produkt.Erledigt)
+	produkt.Menge = console.LeseOptionalZahl("Quantity", produkt.Menge)
+	produkt.Erledigt = console.LeseOptionalBool("Done", produkt.Erledigt)
 
 	data, _ := json.Marshal(produkt)
 	request, _ := http.NewRequest(http.MethodPut, Server+Endpoint, bytes.NewBuffer(data))
@@ -33,7 +33,7 @@ func (action *PutAction) Execute() {
 	response, err := http.DefaultClient.Do(request)
 
 	if err != nil {
-		console.Error("Anfrage konnte nicht an den Server gestellt werden.")
+		console.Error("No connection to server possible.")
 		return
 	}
 

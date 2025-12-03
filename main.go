@@ -10,10 +10,10 @@ import (
 
 func main() {
 	if len(os.Args) > 1 && os.Args[1] == "client" {
-		log.Println("client wird gestartet")
+		log.Println("running console client")
 		client.Run()
 	} else {
-		log.Println("rest-server wird gestartet")
+		log.Println("running rest server")
 		api.Run()
 	}
 }

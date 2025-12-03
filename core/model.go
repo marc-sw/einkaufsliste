@@ -12,9 +12,9 @@ type Produkt struct {
 func (p Produkt) String() string {
 	var erledigtString string
 	if p.Erledigt {
-		erledigtString = "Erledigt"
+		erledigtString = "Done"
 	} else {
-		erledigtString = "Unerledigt"
+		erledigtString = "Unfinished"
 	}
 	return fmt.Sprintf("%-25s [%-2dx] [%-10s]", p.Name, p.Menge, erledigtString)
 }
