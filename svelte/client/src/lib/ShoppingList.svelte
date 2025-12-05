@@ -3,52 +3,50 @@
 
   let products = [];
   let name = "";
-  let menge = 1;
+  let quantity = 1;
 
   async function loadProducts() {
-    const res = await fetch('/produkt');
+    const res = await fetch('/shoppinglist-api/v1/products');
     products = await res.json();
   }
 
   async function addProduct() {
-    await fetch('/produkt', {
+    await fetch('/shoppinglist-api/v1/products', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, menge, erledigt: false })
+      body: JSON.stringify({ name, quantity, done: false })
     });
     name = "";
-    menge = 1;
+    quantity = 1;
     loadProducts();
   }
 
-  async function toggleErledigt(product) {
-    product.erledigt = !product.erledigt
-    await fetch('/produkt', {
+  async function toggleDone(product) {
+    product.done = !product.done
+    await fetch('/shoppinglist-api/v1/products', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         id: product.id,
         name: product.name,
-        menge: product.menge,
-        erledigt: product.erledigt
+        quantity: product.quantity,
+        done: product.done
       })
     });
     products = products
-    //loadProducts();
   }
 
   async function updateProduct(product) {
-    await fetch('/produkt', {
+    await fetch('/shoppinglist-api/v1/products', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(product)
     });
     products = products
-    //loadProducts();
   }
 
   async function removeProduct(product) {
-    await fetch(`/produkt/${product.id}`, { method: 'DELETE' });
+    await fetch(`/shoppinglist-api/v1/products/${product.id}`, { method: 'DELETE' });
     //loadProducts();
     const index = products.indexOf(product)
     products.splice(index, 1)
@@ -62,7 +60,7 @@
 
 <div class="spacing">
   <input placeholder="Name" bind:value={name} />
-  <input type="number" min="1" bind:value={menge} />
+  <input type="number" min="1" bind:value={quantity} />
   <button on:click={addProduct}>Add</button>
 </div>
 
@@ -77,15 +75,15 @@
   <tbody>
     {#each products as p}
       <tr>
-        <td class={p.erledigt ? 'completed' : ''}>
-          <input type="text" bind:value={p.name} on:change={() => updateProduct(p)} class={p.erledigt ? 'completed' : ''} />
+        <td class={p.done ? 'completed' : ''}>
+          <input type="text" bind:value={p.name} on:change={() => updateProduct(p)} class={p.done ? 'completed' : ''} />
         </td>
         <td>
-          <input type="number" min="1" bind:value={p.menge} on:change={() => updateProduct(p)} class={p.erledigt ? 'completed' : ''} />
+          <input type="number" min="1" bind:value={p.quantity} on:change={() => updateProduct(p)} class={p.done ? 'completed' : ''} />
         </td>
         <td>
-          <button on:click={() => toggleErledigt(p)}>
-            {p.erledigt ? 'Undo' : 'Complete'}
+          <button on:click={() => toggleDone(p)}>
+            {p.done ? 'Undo' : 'Complete'}
           </button>
           <button on:click={() => removeProduct(p)}>Delete</button>
         </td>

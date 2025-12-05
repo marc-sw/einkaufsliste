@@ -5,8 +5,8 @@ import "fmt"
 type Produkt struct {
 	Id       int    `json:"id"`
 	Name     string `json:"name"`
-	Menge    int    `json:"menge"`
-	Erledigt bool   `json:"erledigt"`
+	Menge    int    `json:"quantity"`
+	Erledigt bool   `json:"done"`
 }
 
 func (p Produkt) String() string {
