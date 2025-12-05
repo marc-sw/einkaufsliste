@@ -10,7 +10,7 @@ import (
 
 var (
 	Server   string = "http://localhost:8090"
-	Endpoint string = "/produkt"
+	Endpoint string = "/shoppinglist-api/v1/products"
 	Produkte []core.Produkt
 )
 
